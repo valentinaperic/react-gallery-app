@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 
+
 export default class SearchForm extends Component {
 
     state = {
         searchText: ''
     }
-      
-    onSearchChange = e => {
-        this.setState({ searchText: e.target.value });
+
+    onSearchFormChange = e => {
+        this.setState({ searchText: e.target.value })
     }
-      
+
     searchText = e => {
-        e.preventDefault();
+        e.preventDefault(this.query.value);
         this.props.onSearch(this.query.value);
         e.currentTarget.reset();
     }
 
-
-    render() {
+    render() {  
         return (
             <form className="search-form" onSubmit={this.searchText}>
                 <input 
+                    onChange={this.onSearchFormChange} 
                     type="search" 
                     name="search" 
                     placeholder="Search" 

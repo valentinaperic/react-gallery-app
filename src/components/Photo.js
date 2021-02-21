@@ -7,4 +7,3 @@ const Photo = ({server, id, secret, title}) => (
 );
 
 export default Photo;
-
