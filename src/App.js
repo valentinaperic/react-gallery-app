@@ -64,11 +64,16 @@ export default class App extends Component {
         <BrowserRouter>
           <SearchForm onSearch={this.searchPhotos} />
           <Nav />
+          
           <Switch>
             <Route exact path="/search/tree" render={ () => <PhotoGallery data={this.state.tree.photos} /> } />
             <Route exact path="/search/lake" render={ () => <PhotoGallery data={this.state.lake.photos} /> } />
             <Route exact path="/search/ocean" render={ () => <PhotoGallery data={this.state.ocean.photos} /> } />
+            <Route path="/search/:query" render={() => (
+              <PhotoGallery data={this.state.searchQuery} />
+            )} />
           </Switch>
+
         </BrowserRouter>
       </div>
     )
