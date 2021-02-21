@@ -2,15 +2,10 @@ import React from 'react';
 import Photo from './Photo';
 
 const PhotoGallery = props => {
-    console.log(props);
 
-    let data;
-    if (props.data) {
-        data = props.data;
-    }
-    else {
-        data = props.match.params.query;
-    }
+
+    const { data } = props;
+
 
     let photos;
     if (data.length > 0) {
