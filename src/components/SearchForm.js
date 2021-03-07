@@ -8,17 +8,17 @@ class SearchForm extends Component {
     }
 
     componentDidMount() {
-        let query  = this.props.location.pathname;
-        this.props.onSearch(query.slice(query.lastIndexOf('/')));
+        let query  = this.props.location.pathname.split("/").pop();
+        this.props.onSearch(query);
     }
 
     componentDidUpdate(prevProps) {
-        let prevQuery = prevProps.location.pathname;
-        let query  = this.props.location.pathname;
+        let prevQuery = prevProps.location.pathname.split("/").pop();
+        let query  = this.props.location.pathname.split("/").pop();
 
         //check if the query matches the previous query
-        if (query.includes('search') && query !== prevQuery) {
-          this.props.onSearch(query.slice(query.lastIndexOf('/')));
+        if (query !== prevQuery) {
+          this.props.onSearch(query);
         } 
     }
 
@@ -28,7 +28,6 @@ class SearchForm extends Component {
      */
 
     onSearchFormChange = e => {
-        console.log(e);
         this.setState({ searchText: e.target.value })
     }
 
@@ -42,7 +41,7 @@ class SearchForm extends Component {
 
         //set the url 
         this.props.history.push(`/search/${this.query.value}`);
-        
+
         this.props.onSearch(this.query.value);
         e.currentTarget.reset();
     }

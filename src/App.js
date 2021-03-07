@@ -13,7 +13,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      searchQuery: [],
+      searchQuery: { title: '', photos: []},
       tree: { title: 'tree', photos: []},
       lake: { title: 'lake', photos: []},
       ocean: { title: 'ocean', photos: []}
@@ -21,6 +21,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.searchPhotos();
     //get data for nav buttons 
     this.searchPhotos(this.state.tree.title);
     this.searchPhotos(this.state.lake.title);
@@ -33,6 +34,7 @@ export default class App extends Component {
    */
 
   searchPhotos = (query) => {
+
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       switch(query) {
@@ -54,7 +56,7 @@ export default class App extends Component {
         default:
           //a search query
           this.setState({
-            searchQuery: response.data.photos.photo 
+            searchQuery: { title: query, photos: response.data.photos.photo }
           })
       }
     }) 
@@ -70,10 +72,10 @@ export default class App extends Component {
           <SearchForm onSearch={this.searchPhotos} />
           <Nav />
           <Switch> 
-            <Route exact path="/search/tree" render={ () => <PhotoGallery data={this.state.tree.photos} /> } />
-            <Route exact path="/search/lake" render={ () => <PhotoGallery data={this.state.lake.photos} /> } />
-            <Route exact path="/search/ocean" render={ () => <PhotoGallery data={this.state.ocean.photos} /> } />
-            <Route path="/search/:query" render={ () => <PhotoGallery data={this.state.searchQuery} /> } />  
+            <Route exact path="/search/tree" render={ () => <PhotoGallery title={this.state.tree.title} data={this.state.tree.photos} /> } />
+            <Route exact path="/search/lake" render={ () => <PhotoGallery title={this.state.lake.title} data={this.state.lake.photos} /> } />
+            <Route exact path="/search/ocean" render={ () => <PhotoGallery title={this.state.ocean.title} data={this.state.ocean.photos} /> } />
+            <Route path="/search/:query" render={ () => <PhotoGallery title={this.state.searchQuery.title} data={this.state.searchQuery.photos} /> } />  
           </Switch>
         </BrowserRouter>
       </div>

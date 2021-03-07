@@ -5,7 +5,7 @@ export default class NotFound extends Component {
         return (
             <li className="not-found">
                 <h3>No Results Found</h3>
-                <p>You search did not return any results. Please try again.</p>
+                <p>That search did not return any results, please try again.</p>
             </li>
         );
     }

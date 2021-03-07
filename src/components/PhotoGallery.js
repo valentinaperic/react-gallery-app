@@ -4,8 +4,10 @@ import NotFound from './NotFound';
 
 const PhotoGallery = props => {
 
-    const { data } = props;
+    const { data, title } = props;
+
     let photos;
+    let resultsTitle;
 
     //check for results
     if (data.length > 0) {
@@ -18,13 +20,14 @@ const PhotoGallery = props => {
                 title={element.title}
             />
         );
+        resultsTitle = `${title} Results`;
     } else {
         photos = <NotFound />
     }
 
     return (
         <div className="photo-container">
-            <h2>Results</h2>
+            <h2>{resultsTitle}</h2>
             <ul>
                 {photos}
             </ul>
