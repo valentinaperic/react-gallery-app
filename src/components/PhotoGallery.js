@@ -1,12 +1,13 @@
 import React from 'react';
 import Photo from './Photo';
+import NotFound from './NotFound';
 
 const PhotoGallery = props => {
 
     const { data } = props;
-
-
     let photos;
+
+    //check for results
     if (data.length > 0) {
         photos = data.map(element =>
             <Photo 
@@ -17,6 +18,8 @@ const PhotoGallery = props => {
                 title={element.title}
             />
         );
+    } else {
+        photos = <NotFound />
     }
 
     return (

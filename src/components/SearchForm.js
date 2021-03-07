@@ -7,17 +7,6 @@ class SearchForm extends Component {
         searchText: ''
     }
 
-    onSearchFormChange = e => {
-        this.setState({ searchText: e.target.value })
-    }
-
-    searchText = e => {
-        e.preventDefault();
-        this.props.history.push(`/search/${this.query.value}`);
-        this.props.onSearch(this.query.value);
-        e.currentTarget.reset();
-    }
-
     componentDidMount() {
         let query  = this.props.location.pathname;
         this.props.onSearch(query.slice(query.lastIndexOf('/')));
@@ -27,12 +16,35 @@ class SearchForm extends Component {
         let prevQuery = prevProps.location.pathname;
         let query  = this.props.location.pathname;
 
-
+        //check if the query matches the previous query
         if (query.includes('search') && query !== prevQuery) {
           this.props.onSearch(query.slice(query.lastIndexOf('/')));
-          query = "";
-          prevQuery = "";
         } 
+    }
+
+    /**
+     * set the value of input to searchText when form changes 
+     * @param {SyntheticBaseEvent} e
+     */
+
+    onSearchFormChange = e => {
+        console.log(e);
+        this.setState({ searchText: e.target.value })
+    }
+
+    /**
+     * search the text that has been inputted
+     * @param {SyntheticBaseEvent} e
+     */
+
+    searchText = e => {
+        e.preventDefault();
+
+        //set the url 
+        this.props.history.push(`/search/${this.query.value}`);
+        
+        this.props.onSearch(this.query.value);
+        e.currentTarget.reset();
     }
 
     render() {  
