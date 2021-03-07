@@ -16,7 +16,23 @@ class SearchForm extends Component {
         this.props.history.push(`/search/${this.query.value}`);
         this.props.onSearch(this.query.value);
         e.currentTarget.reset();
-        
+    }
+
+    componentDidMount() {
+        let query  = this.props.location.pathname;
+        this.props.onSearch(query.slice(query.lastIndexOf('/')));
+    }
+
+    componentDidUpdate(prevProps) {
+        let prevQuery = prevProps.location.pathname;
+        let query  = this.props.location.pathname;
+
+
+        if (query.includes('search') && query !== prevQuery) {
+          this.props.onSearch(query.slice(query.lastIndexOf('/')));
+          query = "";
+          prevQuery = "";
+        } 
     }
 
     render() {  

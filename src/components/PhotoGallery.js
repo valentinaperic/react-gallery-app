@@ -3,8 +3,6 @@ import Photo from './Photo';
 
 const PhotoGallery = props => {
 
-
-    props.onSearch(props.match.params.query);
     const { data } = props;
 
 
