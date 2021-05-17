@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios'
 import './App.css';
-import apiKey from './config';
-
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import PhotoGallery from './components/PhotoGallery';
@@ -34,7 +32,7 @@ export default class App extends Component {
    */
 
   searchPhotos = (query) => {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       switch(query) {
         case 'tree':
@@ -61,7 +59,7 @@ export default class App extends Component {
     }) 
     .catch(error => {
       console.log('Error fetching and parsing data', error);
-    });
+    }); 
   }
 
   render() {
