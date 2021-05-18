@@ -32,8 +32,7 @@ export default class App extends Component {
    */
 
   searchPhotos = (query) => {
-    const REACT_APP_API_KEY = 1;
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${REACT_APP_API_KEY}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       switch(query) {
         case 'tree':
